@@ -6,77 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f8f9fa;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
             color: #333;
             margin: 0;
             padding: 40px 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
         }
         h1 {
             text-align: center;
             color: #e1306c;
+            margin-bottom: 10px;
+        }
+        p {
+            text-align: center;
+            color: #666;
         }
         ul {
             list-style: none;
             padding: 0;
+            margin-top: 30px;
         }
         li {
-            margin: 15px 0;
-            padding: 12px 15px;
-            background: #f1f1f1;
+            margin: 12px 0;
+            padding: 16px 20px;
+            background: #fafafa;
+            border: 1px solid #eee;
             border-radius: 8px;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
         li:hover {
-            background: #ffe6f0;
-            transform: translateX(10px);
+            background: #fff0f5;
+            border-color: #e1306c;
         }
         a {
             text-decoration: none;
             color: #e1306c;
+            font-size: 1.05em;
             font-weight: 500;
-            word-break: break-all;
         }
         a:hover {
             text-decoration: underline;
         }
         .lastmod {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 5px;
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 6px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🌐 Follcrease Sitemap</h1>
-        <p style="text-align:center; color:#555;">Last Updated: 29 June 2026</p>
-        
+        <p>Last Updated: June 29, 2026</p>
+
         <ul>
             <li>
-                <a href="https://instagramsupportcommunity.github.io/Followbots/" target="_blank">
-                    Home
-                </a>
+                <a href="https://instagramsupportcommunity.github.io/Followbots/" target="_blank">Home Page</a>
                 <div class="lastmod">Priority: 1.00</div>
             </li>
             <li>
-                <a href="https://instagramsupportcommunity.github.io/Followbots/privacy-policy.html" target="_blank">
-                    Privacy Policy
-                </a>
+                <a href="https://instagramsupportcommunity.github.io/Followbots/privacy-policy.html" target="_blank">Privacy Policy</a>
                 <div class="lastmod">Priority: 0.80</div>
             </li>
             <li>
-                <a href="https://instagramsupportcommunity.github.io/Followbots/terms-of-service.html" target="_blank">
-                    Terms of Service
-                </a>
+                <a href="https://instagramsupportcommunity.github.io/Followbots/terms-of-service.html" target="_blank">Terms of Service</a>
                 <div class="lastmod">Priority: 0.80</div>
             </li>
         </ul>
