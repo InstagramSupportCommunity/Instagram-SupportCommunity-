@@ -1,86 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Follcrease - Sitemap</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 40px 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #e1306c;
-            margin-bottom: 10px;
-        }
-        p {
-            text-align: center;
-            color: #666;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 30px;
-        }
-        li {
-            margin: 12px 0;
-            padding: 16px 20px;
-            background: #fafafa;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-        li:hover {
-            background: #fff0f5;
-            border-color: #e1306c;
-        }
-        a {
-            text-decoration: none;
-            color: #e1306c;
-            font-size: 1.05em;
-            font-weight: 500;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .lastmod {
-            font-size: 0.85em;
-            color: #888;
-            margin-top: 6px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🌐 Follcrease Sitemap</h1>
-        <p>Last Updated: June 29, 2026</p>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:fo="http://www.w3.org/1999/XSL/Format"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-        <ul>
-            <li>
-                <a href="https://instagramsupportcommunity.github.io/Followbots/" target="_blank">Home Page</a>
-                <div class="lastmod">Priority: 1.00</div>
-            </li>
-            <li>
-                <a href="https://instagramsupportcommunity.github.io/Followbots/privacy-policy.html" target="_blank">Privacy Policy</a>
-                <div class="lastmod">Priority: 0.80</div>
-            </li>
-            <li>
-                <a href="https://instagramsupportcommunity.github.io/Followbots/terms-of-service.html" target="_blank">Terms of Service</a>
-                <div class="lastmod">Priority: 0.80</div>
-            </li>
-        </ul>
-    </div>
-</body>
-</html>
+
+<url>
+  <loc>https://instagramsupportcommunity.github.io/Followbots/</loc>
+  <lastmod>2026-06-29T13:11:04+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://instagramsupportcommunity.github.io/Followbots/privacy-policy.html</loc>
+  <lastmod>2026-06-29T13:11:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://instagramsupportcommunity.github.io/Followbots/terms-of-service.html</loc>
+  <lastmod>2026-06-29T13:11:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+</urlset>
